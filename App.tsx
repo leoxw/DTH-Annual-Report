@@ -9,6 +9,7 @@ import {
   Package,
   Headphones,
   Menu,
+  X,
   ChevronRight,
   TrendingUp,
   AlertCircle,
@@ -301,7 +302,7 @@ const AfterSalesSection = () => (
   </div>
 );
 
-// --- Main Layout ---
+// --- Navigation Components ---
 
 const SidebarItem = ({ icon: Icon, label, active, onClick }: { icon: any, label: string, active: boolean, onClick: () => void }) => (
   <button 
@@ -309,17 +310,64 @@ const SidebarItem = ({ icon: Icon, label, active, onClick }: { icon: any, label:
     className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
       active 
         ? 'bg-red-50 text-red-600 font-semibold shadow-sm' 
-        : 'text-slate-600 hover:bg-white hover:text-slate-900'
+        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
     }`}
   >
     <Icon size={20} className={active ? 'text-red-600' : 'text-slate-400'} />
-    <span>{label}</span>
+    <span className="text-sm">{label}</span>
     {active && <ChevronRight size={16} className="ml-auto" />}
   </button>
 );
 
+const NavigationContent = ({ activeSection, onNavigate }: { activeSection: ReportSection, onNavigate: (section: ReportSection) => void }) => (
+  <nav className="p-4 space-y-1 flex-grow">
+    <SidebarItem 
+      icon={LayoutDashboard} 
+      label="业务总览" 
+      active={activeSection === ReportSection.HOME} 
+      onClick={() => onNavigate(ReportSection.HOME)} 
+    />
+    <div className="pt-6 pb-2 px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em]">
+      报表分类
+    </div>
+    <SidebarItem 
+      icon={TrendingUp} 
+      label="用户发展分析" 
+      active={activeSection === ReportSection.USER_DEV} 
+      onClick={() => onNavigate(ReportSection.USER_DEV)} 
+    />
+    <SidebarItem 
+      icon={Settings} 
+      label="运营监控中心" 
+      active={activeSection === ReportSection.USER_OPS} 
+      onClick={() => onNavigate(ReportSection.USER_OPS)} 
+    />
+    <SidebarItem 
+      icon={Package} 
+      label="供应链与库存" 
+      active={activeSection === ReportSection.INVENTORY} 
+      onClick={() => onNavigate(ReportSection.INVENTORY)} 
+    />
+    <SidebarItem 
+      icon={Headphones} 
+      label="售后质量监测" 
+      active={activeSection === ReportSection.AFTERSALES} 
+      onClick={() => onNavigate(ReportSection.AFTERSALES)} 
+    />
+  </nav>
+);
+
 export default function App() {
   const [activeSection, setActiveSection] = useState<ReportSection>(ReportSection.HOME);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const handleNavigate = (section: ReportSection) => {
+    setActiveSection(section);
+    closeMobileMenu();
+  };
 
   const renderSection = () => {
     switch (activeSection) {
@@ -333,80 +381,104 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex font-sans">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-slate-200 fixed h-full z-10 hidden md:flex flex-col">
+    <div className="min-h-screen bg-slate-50 flex font-sans overflow-x-hidden">
+      {/* --- Desktop Sidebar --- */}
+      <aside className="w-64 bg-white border-r border-slate-200 fixed h-full z-20 hidden md:flex flex-col shadow-sm">
         <div className="p-6 border-b border-slate-100 flex items-center gap-3">
-          <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white">
+          <div className="w-9 h-9 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-red-100">
             <Satellite size={20} />
           </div>
           <div>
-            <h1 className="font-bold text-slate-900 leading-tight">直播卫星业务</h1>
-            <p className="text-xs text-slate-500">2025年度报告</p>
+            <h1 className="font-bold text-slate-900 leading-tight text-base">直播卫星业务</h1>
+            <p className="text-[10px] text-slate-500 font-medium">2025年度报告系统</p>
           </div>
         </div>
         
-        <nav className="p-4 space-y-2 flex-grow">
-          <SidebarItem 
-            icon={LayoutDashboard} 
-            label="总览" 
-            active={activeSection === ReportSection.HOME} 
-            onClick={() => setActiveSection(ReportSection.HOME)} 
-          />
-          <div className="pt-4 pb-2 px-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-            报表分类
-          </div>
-          <SidebarItem 
-            icon={TrendingUp} 
-            label="用户发展" 
-            active={activeSection === ReportSection.USER_DEV} 
-            onClick={() => setActiveSection(ReportSection.USER_DEV)} 
-          />
-          <SidebarItem 
-            icon={Settings} 
-            label="运营监控" 
-            active={activeSection === ReportSection.USER_OPS} 
-            onClick={() => setActiveSection(ReportSection.USER_OPS)} 
-          />
-          <SidebarItem 
-            icon={Package} 
-            label="库存管理" 
-            active={activeSection === ReportSection.INVENTORY} 
-            onClick={() => setActiveSection(ReportSection.INVENTORY)} 
-          />
-          <SidebarItem 
-            icon={Headphones} 
-            label="售后服务" 
-            active={activeSection === ReportSection.AFTERSALES} 
-            onClick={() => setActiveSection(ReportSection.AFTERSALES)} 
-          />
-        </nav>
+        <NavigationContent activeSection={activeSection} onNavigate={handleNavigate} />
 
         <div className="p-4 border-t border-slate-100">
-          <div className="bg-red-50 rounded-lg p-4 text-center">
-            <p className="text-xs text-red-600 font-semibold mb-1">国家广播电视总局</p>
-            <p className="text-[10px] text-red-400">2025年12月发布</p>
+          <div className="bg-slate-900 rounded-xl p-4 text-center text-white">
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">权威发布</p>
+            <p className="text-xs font-bold">国家广播电视总局</p>
           </div>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 md:ml-64 p-4 md:p-8 overflow-y-auto">
-        {/* Mobile Header */}
-        <div className="md:hidden flex items-center justify-between mb-6 bg-white p-4 rounded-xl shadow-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white">
-              <Satellite size={20} />
+      {/* --- Mobile Sidebar (Drawer) --- */}
+      <div 
+        className={`fixed inset-0 z-50 transition-all duration-300 md:hidden ${isMobileMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}
+      >
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" 
+          onClick={closeMobileMenu}
+        />
+        
+        {/* Drawer Content */}
+        <div 
+          className={`absolute left-0 top-0 h-full w-[280px] bg-white shadow-2xl transition-transform duration-300 ease-out flex flex-col ${
+            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white">
+                <Satellite size={18} />
+              </div>
+              <span className="font-bold text-slate-900">报表导航</span>
             </div>
-            <span className="font-bold text-slate-900">直播卫星 2025</span>
+            <button 
+              onClick={closeMobileMenu}
+              className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              <X size={20} />
+            </button>
           </div>
-          <button className="text-slate-500"><Menu /></button>
+          
+          <div className="flex-grow overflow-y-auto">
+            <NavigationContent activeSection={activeSection} onNavigate={handleNavigate} />
+          </div>
+
+          <div className="p-4 border-t border-slate-100 bg-slate-50">
+             <div className="text-center text-[10px] text-slate-400 font-semibold mb-2">数据截至 2025.12</div>
+             <div className="text-center text-xs text-slate-600 font-bold">卫星直播管理中心</div>
+          </div>
+        </div>
+      </div>
+
+      {/* --- Main Content Area --- */}
+      <main className="flex-1 md:ml-64 p-4 md:p-8 min-h-screen">
+        {/* Mobile Header Toolbar */}
+        <div className="md:hidden flex items-center justify-between mb-6 bg-white p-3 rounded-2xl shadow-sm border border-slate-100">
+          <button 
+            onClick={toggleMobileMenu}
+            className="p-2.5 text-slate-600 hover:bg-slate-50 active:bg-slate-100 rounded-xl transition-all border border-slate-100 shadow-sm"
+          >
+            <Menu size={22} />
+          </button>
+          
+          <div className="flex flex-col items-center">
+            <span className="font-bold text-slate-900 text-sm">2025 直播卫星报告</span>
+            <span className="text-[10px] text-red-500 font-bold uppercase tracking-wider">卫星直播管理中心</span>
+          </div>
+
+          <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-300">
+            <Satellite size={20} />
+          </div>
         </div>
 
-        {renderSection()}
+        {/* Section Content */}
+        <div className="max-w-7xl mx-auto">
+          {renderSection()}
+        </div>
 
-        <footer className="mt-12 pt-6 border-t border-slate-200 text-center text-slate-400 text-sm">
-          <p>© 2025 国家广播电视总局 - 卫星直播管理中心</p>
+        <footer className="mt-16 pt-8 border-t border-slate-200 text-center text-slate-400">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-1 h-1 bg-slate-300 rounded-full"></div>
+            <p className="text-xs font-medium tracking-wide italic">数据赋能 · 智慧传播</p>
+            <div className="w-1 h-1 bg-slate-300 rounded-full"></div>
+          </div>
+          <p className="text-[10px] opacity-60 uppercase tracking-widest">© 2025 National Radio and Television Administration</p>
         </footer>
       </main>
     </div>
