@@ -43,7 +43,7 @@ export const monthlyNewUsers: MonthlyDataPoint[] = [
   { month: '11月', year2024: 17.8, year2025: 16.0 },
 ];
 
-// Slide 8: Re-authorization
+// Slide 8: Re-authorization (重发授权)
 export const monthlyReAuth: MonthlyDataPoint[] = [
   { month: '12月', year2024: 45.0, year2025: 55.0 },
   { month: '1月', year2024: 60.59, year2025: 100.66 },

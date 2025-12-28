@@ -73,7 +73,7 @@ const HomeSection = () => (
       {[
         { label: '2025年新增用户', value: '181.11 万', icon: Users, color: 'text-blue-600', trend: '+1.0%' },
         { label: '日均新增用户峰值', value: '11.46 万', sub: '(2016 历史峰值)', icon: TrendingUp, color: 'text-red-600', trend: '历史数据' },
-        { label: '月均二次授权', value: '~45 万', icon: Settings, color: 'text-orange-600', trend: '平稳' },
+        { label: '月均重发授权', value: '~45 万', icon: Settings, color: 'text-orange-600', trend: '平稳' },
         { label: '客服来电量', value: '16.20 万', sub: '(24年1月 峰值)', icon: Phone, color: 'text-green-600', trend: '季节性波动' },
       ].map((stat, idx) => (
         <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
@@ -122,7 +122,7 @@ const HomeSection = () => (
           </li>
           <li className="flex items-start gap-3">
             <div className="bg-red-500 p-1 rounded mt-1"><ChevronRight size={16} /></div>
-            <p><span className="font-bold text-red-400">季节效应:</span> 每年1月和2月是各项运营指标（开户、二次授权、话务量）的显著高峰期。</p>
+            <p><span className="font-bold text-red-400">季节效应:</span> 每年1月和2月是各项运营指标（开户、重发授权、话务量）的显著高峰期。</p>
           </li>
           <li className="flex items-start gap-3">
             <div className="bg-red-500 p-1 rounded mt-1"><ChevronRight size={16} /></div>
@@ -187,10 +187,10 @@ const UserOpsSection = () => (
   <div className="space-y-6">
     <SectionHeader 
       title="用户运营与活跃度" 
-      description="追踪用户二次授权、销户及设备移机等关键运营指标。" 
+      description="追踪用户重发授权、销户及设备移机等关键运营指标。" 
     />
 
-    <Card title="月度二次授权量" analysis="2025年1月二次授权量出现爆发式增长（100.66万），较前一年峰值几近翻倍，表明存在重大的季节性激活事件或政策性调整。">
+    <Card title="月度重发授权量" analysis="2025年1月重发授权量出现爆发式增长（100.66万），较前一年峰值几近翻倍，表明存在重大的季节性激活事件或政策性调整。">
       <ResponsiveContainer width="100%" height={350}>
         <LineChart data={monthlyReAuth}>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
@@ -206,7 +206,7 @@ const UserOpsSection = () => (
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="bg-white p-6 rounded-xl border border-slate-100">
-        <h4 className="font-semibold text-slate-700 mb-2">二次授权峰值</h4>
+        <h4 className="font-semibold text-slate-700 mb-2">重发授权峰值</h4>
         <div className="text-3xl font-bold text-red-500">100.66 万</div>
         <p className="text-sm text-slate-500">2025年1月</p>
       </div>
@@ -255,7 +255,7 @@ const AfterSalesSection = () => (
     />
 
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card title="月度话务量趋势" analysis="话务量与每年1月的新增用户及二次授权高峰高度正相关（峰值16.20万）。第一季度的人力资源保障至关重要。">
+      <Card title="月度话务量趋势" analysis="话务量与每年1月的新增用户及重发授权高峰高度正相关（峰值16.20万）。第一季度的人力资源保障至关重要。">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={callVolume}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
