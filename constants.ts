@@ -1,5 +1,8 @@
 import { AnnualDataPoint, MonthlyDataPoint, IssueDataPoint } from './types';
 
+// 户户通/直播卫星 红色 Logo 占位符 (SVG Base64)
+export const APP_LOGO = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGMyNjI2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTEyIDJhMTAgMTAgMCAxIDAgMTAgMTBBMTAgMTAgMCAwIDAgMTIgMnptMCAxOGE4IDggMCAxIDEgOC04IDggOCAwIDAgMS04IDh6Ii8+PHBhdGggZD0iTTIgMTJoMjAiLz48cGF0aCBkPSJNMTIgMnYyMCIvPjxwYXRoIGQ9Im00LjkzIDQuOTMgMTQuMTQgMTQuMTQiLz48cGF0aCBkPSJtNC45MyAxOS4wNyAxNC4xNC0xNC4xNCIvPjwvc3ZnPg==";
+
 // Slide 4: 2012-2025 Annual Daily Avg New Users
 export const dailyAvgNewUsers: AnnualDataPoint[] = [
   { year: '2012', value: 1.02 },

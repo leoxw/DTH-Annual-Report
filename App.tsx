@@ -14,8 +14,7 @@ import {
   TrendingUp,
   AlertCircle,
   Phone,
-  Radio,
-  Satellite
+  Radio
 } from 'lucide-react';
 import {
   dailyAvgNewUsers,
@@ -25,7 +24,8 @@ import {
   chipInventory,
   callVolume,
   beidouIssues,
-  baseStationIssues
+  baseStationIssues,
+  APP_LOGO
 } from './constants';
 import { ReportSection } from './types';
 
@@ -385,9 +385,7 @@ export default function App() {
       {/* --- Desktop Sidebar --- */}
       <aside className="w-64 bg-white border-r border-slate-200 fixed h-full z-20 hidden md:flex flex-col shadow-sm">
         <div className="p-6 border-b border-slate-100 flex items-center gap-3">
-          <div className="w-9 h-9 bg-red-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-red-100">
-            <Satellite size={20} />
-          </div>
+          <img src={APP_LOGO} alt="直播卫星业务 Logo" className="w-10 h-10 object-contain" />
           <div>
             <h1 className="font-bold text-slate-900 leading-tight text-base">直播卫星业务</h1>
             <p className="text-[10px] text-slate-500 font-medium">2025年度报告系统</p>
@@ -422,9 +420,7 @@ export default function App() {
         >
           <div className="p-5 border-b border-slate-100 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white">
-                <Satellite size={18} />
-              </div>
+              <img src={APP_LOGO} alt="Logo" className="w-8 h-8 object-contain" />
               <span className="font-bold text-slate-900">报表导航</span>
             </div>
             <button 
@@ -462,8 +458,8 @@ export default function App() {
             <span className="text-[10px] text-red-500 font-bold uppercase tracking-wider">卫星直播管理中心</span>
           </div>
 
-          <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-300">
-            <Satellite size={20} />
+          <div className="w-10 h-10 flex items-center justify-center">
+            <img src={APP_LOGO} alt="Logo" className="w-full h-full object-contain" />
           </div>
         </div>
 
